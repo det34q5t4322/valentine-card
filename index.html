@@ -26,8 +26,8 @@
         }
 
         .flower {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             background: #ff69b4;
             clip-path: polygon(
                 50% 0%,
@@ -42,8 +42,8 @@
         }
 
         .heart-bg {
-            width: 25px;
-            height: 25px;
+            width: 15px;
+            height: 15px;
             background: #ff69b4;
             clip-path: path(
                 "M12 4.419c-2.763-4.674-12 5.158-12 10.041 0 4.535 4.218 7.109 6.862 8.558 4.155 2.241 5.138 1.45 5.138 1.45s1.054.739 5.138-1.45c2.645-1.449 6.862-4.023 6.862-8.558 0-4.883-9.237-14.715-12-10.041z"
@@ -51,8 +51,8 @@
         }
 
         .cat-bg {
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             background: url('https://img.icons8.com/ios-filled/50/000000/cat.png') no-repeat center/contain;
             animation: floatCat 10s linear infinite;
         }
@@ -70,8 +70,8 @@
         /* Конверт */
         .envelope {
             position: relative;
-            width: 309px;
-            height: 206px;
+            width: 200px;
+            height: 133px;
             cursor: pointer;
             perspective: 1000px;
             z-index: 2;
@@ -81,7 +81,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 154.5px;
+            height: 100px;
             background: linear-gradient(135deg, #1560bd, #0c4c87);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
@@ -91,13 +91,13 @@
         .envelope .flap {
             position: absolute;
             width: 100%;
-            height: 51.5px;
+            height: 33px;
             background: linear-gradient(135deg, #0c4c87, #083a6b);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top;
             transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             z-index: 2;
-            top: 52.53px;
+            top: 33px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -109,16 +109,16 @@
             position: absolute;
             top: 45%;
             left: 50%;
-            width: 84%;
-            height: 67%;
-            background: #f2e8c9;
+            width: 80%;
+            height: 60%;
+            background: white;
             transform: translate(-50%, 100%);
             transition: all 0.8s ease-in-out;
             z-index: 3;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            padding: 20.6px;
+            padding: 15px;
             box-sizing: border-box;
-            font-size: 16.48px;
+            font-size: 14px;
             color: #333;
             text-align: center;
             border-radius: 5px;
@@ -133,11 +133,11 @@
         /* Кнопка-сердечко чуть ниже конверта */
         .heart-button {
             position: absolute;
-            top: 60%; /* Опущена ниже конверта */
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(45deg, #ff6b6b, #ff4757);
             clip-path: path(
                 "M25 4.5C25 4.5 30 0 37 0C44 0 50 6 50 13C50 20 44 30 25 50C6 30 0 20 0 13C0 6 6 0 13 0C20 0 25 4.5 25 4.5Z"
@@ -154,13 +154,13 @@
         /* Стили для лапок */
         .paw {
             position: fixed;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background-size: cover;
             cursor: pointer;
             z-index: 1000;
             transition: all 0.5s ease-in-out;
-            background-image: url('https://cdn-icons-png.flaticon.com/256/11478/11478492.png'); /* Изображение лапки */
+            background-image: url('https://cdn-icons-png.flaticon.com/256/11478/11478492.png');
         }
 
         .paw-message {
@@ -169,13 +169,13 @@
             padding: 10px 20px;
             border-radius: 10px;
             color: white;
-            font-size: 20px;
+            font-size: 16px;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             z-index: 1001;
-            pointer-events: none; /* Чтобы сообщение не блокировало клики */
-            max-width: 350px; /* Ограничиваем ширину сообщения */
-            word-wrap: break-word; /* Перенос текста */
+            pointer-events: none;
+            max-width: 200px;
+            word-wrap: break-word;
             text-align: center;
         }
 
@@ -183,25 +183,31 @@
             opacity: 1;
         }
 
+        /* Медиа-запросы для адаптации под мобильные устройства */
         @media (max-width: 600px) {
             .envelope {
-                width: 200px;
-                height: 133px;
+                width: 150px;
+                height: 100px;
             }
 
             .envelope .letter {
-                font-size: 14px;
-                padding: 15px;
+                font-size: 12px;
+                padding: 10px;
             }
 
             .heart-button {
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
+            }
+
+            .paw {
+                width: 50px;
+                height: 50px;
             }
 
             .paw-message {
-                max-width: 200px; /* Уменьшаем ширину сообщения на мобильных устройствах */
-                font-size: 16px;
+                max-width: 150px;
+                font-size: 14px;
             }
         }
     </style>
@@ -288,7 +294,6 @@
             "Мур-мур! Ты мое счастье!",
         ];
 
-        // Функция для показа лапки и сообщения
         function showPaw() {
             const paw = document.getElementById('paw');
             const message = document.getElementById('paw-message');
@@ -296,7 +301,7 @@
 
             // Определяем, на каком краю появится лапка (левый или правый)
             const edge = Math.random() > 0.5 ? 'left' : 'right';
-            const randomY = Math.random() * (window.innerHeight - 80); // Случайная позиция по вертикали
+            const randomY = Math.random() * (window.innerHeight - 80);
 
             // Показываем лапку
             paw.style[edge] = '20px';
@@ -304,9 +309,15 @@
 
             // Показываем сообщение рядом с лапкой
             message.textContent = randomMessage;
-            message.style[edge] = '120px'; // Чуть выше лапки
+            message.style[edge] = '120px';
             message.style.top = `${randomY - 30}px`;
             message.classList.add('show');
+
+            // Устанавливаем таймер для исчезновения лапки и сообщения через 10 секунд
+            setTimeout(() => {
+                paw.style[edge] = '-80px';
+                message.classList.remove('show');
+            }, 10000);
         }
 
         // Обработчик клика на лапку
@@ -325,12 +336,10 @@
             }, 1000);
         });
 
-        // Изначальное появление лапки (только по нажатию)
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('.paw') && !event.target.closest('.heart-button') && !event.target.closest('.envelope')) {
-                showPaw();
-            }
-        });
+        // Изначальное появление лапки
+        setTimeout(() => {
+            showPaw();
+        }, 1000);
     </script>
 </body>
 </html>
