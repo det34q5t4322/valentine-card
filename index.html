@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valentine's Day Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #ffffff, #ffb6c1);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Фоновые элементы */
+        .bg-element {
+            position: absolute;
+            opacity: 0.3;
+            z-index: 0;
+            animation: floatBg 20s linear infinite;
+        }
+
+        .flower {
+            width: 30px;
+            height: 30px;
+            background: #ff69b4;
+            clip-path: polygon(
+                50% 0%,
+                60% 40%,
+                100% 50%,
+                60% 60%,
+                50% 100%,
+                40% 60%,
+                0% 50%,
+                40% 40%
+            );
+        }
+
+        .heart-bg {
+            width: 25px;
+            height: 25px;
+            background: #ff69b4;
+            clip-path: path(
+                "M12 4.419c-2.763-4.674-12 5.158-12 10.041 0 4.535 4.218 7.109 6.862 8.558 4.155 2.241 5.138 1.45 5.138 1.45s1.054.739 5.138-1.45c2.645-1.449 6.862-4.023 6.862-8.558 0-4.883-9.237-14.715-12-10.041z"
+            );
+        }
+
+        .cat-bg {
+            width: 50px;
+            height: 50px;
+            background: url('https://img.icons8.com/ios-filled/50/000000/cat.png') no-repeat center/contain;
+            animation: floatCat 10s linear infinite;
+        }
+
+        @keyframes floatBg {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        @keyframes floatCat {
+            0% { transform: translateX(-100px) rotate(0deg); }
+            100% { transform: translateX(100vw) rotate(360deg); }
+        }
+
+        /* Конверт */
+        .envelope {
+            position: relative;
+            width: 309px;
+            height: 206px;
+            cursor: pointer;
+            perspective: 1000px;
+            z-index: 2;
+        }
+
+        .envelope .body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 154.5px;
+            background: linear-gradient(135deg, #1560bd, #0c4c87);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            z-index: 1;
+        }
+
+        .envelope .flap {
+            position: absolute;
+            width: 100%;
+            height: 51.5px;
+            background: linear-gradient(135deg, #0c4c87, #083a6b);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+            top: 52.53px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope .letter {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            width: 84%;
+            height: 67%;
+            background: #f2e8c9;
+            transform: translate(-50%, 100%);
+            transition: all 0.8s ease-in-out;
+            z-index: 3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20.6px;
+            box-sizing: border-box;
+            font-size: 16.48px;
+            color: #333;
+            text-align: center;
+            border-radius: 5px;
+            opacity: 0;
+        }
+
+        .envelope.open .letter {
+            transform: translate(-50%, -45%);
+            opacity: 1;
+        }
+
+        /* Кнопка-сердечко чуть ниже конверта */
+        .heart-button {
+            position: absolute;
+            top: 60%; /* Опущена ниже конверта */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            clip-path: path(
+                "M25 4.5C25 4.5 30 0 37 0C44 0 50 6 50 13C50 20 44 30 25 50C6 30 0 20 0 13C0 6 6 0 13 0C20 0 25 4.5 25 4.5Z"
+            );
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .heart-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Стили для лапок */
+        .paw {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.5s ease-in-out;
+            background-image: url('https://cdn-icons-png.flaticon.com/256/11478/11478492.png'); /* Изображение лапки */
+        }
+
+        .paw-message {
+            position: fixed;
+            background-color: rgba(255, 182, 193, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1001;
+            pointer-events: none; /* Чтобы сообщение не блокировало клики */
+            max-width: 350px; /* Ограничиваем ширину сообщения */
+            word-wrap: break-word; /* Перенос текста */
+            text-align: center;
+        }
+
+        .paw-message.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .envelope {
+                width: 200px;
+                height: 133px;
+            }
+
+            .envelope .letter {
+                font-size: 14px;
+                padding: 15px;
+            }
+
+            .heart-button {
+                width: 40px;
+                height: 40px;
+            }
+
+            .paw-message {
+                max-width: 200px; /* Уменьшаем ширину сообщения на мобильных устройствах */
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="body"></div>
+        <div class="letter">
+            Литл котик, 
+            это моя небольшая валентинка для тебя моего котика💗
+            я тебя очень люблю ты самая лучшая девушка на свете <br>
+            Спасибо тебе за всё!
+        </div>
+    </div>
+
+    <!-- Кнопка-сердечко чуть ниже конверта -->
+    <div class="heart-button" onclick="toggleEnvelope()"></div>
+
+    <!-- Лапка и сообщение -->
+    <div id="paw" class="paw"></div>
+    <div id="paw-message" class="paw-message"></div>
+
+    <script>
+        // Фоновые элементы
+        function createBgElement() {
+            const types = ['flower', 'heart-bg', 'cat-bg'];
+            const element = document.createElement('div');
+            element.className = `bg-element ${types[Math.floor(Math.random() * types.length)]}`;
+            
+            element.style.left = `${Math.random() * 100}%`;
+            element.style.animationDelay = `${Math.random() * 20}s`;
+            element.style.opacity = Math.random() * 0.3 + 0.1;
+            element.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+            
+            document.body.appendChild(element);
+            
+            setTimeout(() => element.remove(), 20000);
+        }
+
+        setInterval(createBgElement, 2000);
+        for(let i = 0; i < 10; i++) setTimeout(createBgElement, Math.random() * 2000);
+
+        // Интерактивные сердца
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${Math.random() * 100}%`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Управление конвертом
+        function toggleEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.toggle('open');
+            if (envelope.classList.contains('open')) {
+                createHeartsFromEnvelope();
+            }
+        }
+
+        // Сердечки из конверта
+        function createHeartsFromEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 80 + 10}%`;
+                envelope.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+
+        // Логика для лапок
+        const pawMessages = [
+            "Мяу! Ты сделал мой день!",
+            "Ты просто пушистый комок счастья!",
+            "Мур-мур! Ты лучший!",
+            "Ты светишься, как солнышко!",
+            "Мяу! Ты прекрасен!",
+            "Ты заслуживаешь всех объятий в мире!",
+            "Мур-мур! Ты мое счастье!",
+        ];
+
+        // Функция для показа лапки и сообщения
+        function showPaw() {
+            const paw = document.getElementById('paw');
+            const message = document.getElementById('paw-message');
+            const randomMessage = pawMessages[Math.floor(Math.random() * pawMessages.length)];
+
+            // Определяем, на каком краю появится лапка (левый или правый)
+            const edge = Math.random() > 0.5 ? 'left' : 'right';
+            const randomY = Math.random() * (window.innerHeight - 80); // Случайная позиция по вертикали
+
+            // Показываем лапку
+            paw.style[edge] = '20px';
+            paw.style.top = `${randomY}px`;
+
+            // Показываем сообщение рядом с лапкой
+            message.textContent = randomMessage;
+            message.style[edge] = '120px'; // Чуть выше лапки
+            message.style.top = `${randomY - 30}px`;
+            message.classList.add('show');
+        }
+
+        // Обработчик клика на лапку
+        document.getElementById('paw').addEventListener('click', () => {
+            const paw = document.getElementById('paw');
+            const message = document.getElementById('paw-message');
+
+            // Скрываем лапку и сообщение при нажатии
+            paw.style.left = '-80px';
+            paw.style.right = '-80px';
+            message.classList.remove('show');
+
+            // Через 1 секунду показываем новую лапку на другом краю
+            setTimeout(() => {
+                showPaw();
+            }, 1000);
+        });
+
+        // Изначальное появление лапки (только по нажатию)
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.paw') && !event.target.closest('.heart-button') && !event.target.closest('.envelope')) {
+                showPaw();
+            }
+        });
+    </script>
+</body>
+</html>
